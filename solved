@@ -1,0 +1,22 @@
+Provide a list of songs that were never sold in Chinook. Display the track_id and the name columns.
+
+SELECT t.track_id , t.name
+FROM track t
+LEFT JOIN invoice_line il
+ON il.track_id = t.track_id 
+LEFT JOIN invoice i
+ON i.invoice_id = il.invoice_id 
+WHERE i.invoice_id IS NULL
+GROUP BY t.track_id , t.name
+
+
+Write a query that displays all possible combinations of rows between employee and itself while filtering out the general manager and rows where each employee is matched with themselves.
+Display the first_name of each pair of selected employees.
+
+
+SELECT e1.first_name , e2.first_name
+FROM employee e1
+CROSS JOIN employee e2
+ON e1.employee_id <> e2.employee_id
+AND e1.reports_to IS NOT NULL
+AND e2.reports_to IS NOT NULL
